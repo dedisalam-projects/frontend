@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/apps/desktop-electron",
+    "module": "commonjs",
+    "target": "es2022",
+    "rootDir": "electron",
+    "declaration": false,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
+  },
+  "include": ["electron/**/*.ts"]
+}

@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Gateway",
+    "description": "The API Gateway entry point description",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/v1/hello": {
+      "get": {
+        "operationId": "appControllerGetHello",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HelloResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HelloResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string" },
+          "services": {
+            "type": "object",
+            "properties": {
+              "user": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

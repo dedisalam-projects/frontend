@@ -1,0 +1,8 @@
+{
+  "@@locale": "id",
+  "appTitle": "Aplikasi Hello World",
+  "helloWorld": "Halo Dunia",
+  "fetchData": "Ambil Data",
+  "loading": "Memuat...",
+  "error": "Terjadi kesalahan"
+}

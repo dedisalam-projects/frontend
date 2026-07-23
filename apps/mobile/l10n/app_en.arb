@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+  "appTitle": "Hello World App",
+  "helloWorld": "Hello World",
+  "fetchData": "Fetch Data",
+  "loading": "Loading...",
+  "error": "Error occurred"
+}

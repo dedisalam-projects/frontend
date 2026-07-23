@@ -1,0 +1,127 @@
+{
+  "name": "desktop",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/desktop/src",
+  "tags": [],
+  "generators": {
+    "@nx/angular:component": {
+      "changeDetection": "OnPush"
+    }
+  },
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/desktop",
+        "browser": "apps/desktop/src/main.ts",
+        "tsConfig": "apps/desktop/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/desktop/public"
+          }
+        ],
+        "styles": ["apps/desktop/src/styles.scss"]
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve-browser": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "buildTarget": "desktop:build:production"
+        },
+        "development": {
+          "buildTarget": "desktop:build:development"
+        }
+      }
+    },
+    "build-electron": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p apps/desktop/tsconfig.electron.json"
+      }
+    },
+    "watch-electron": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p apps/desktop/tsconfig.electron.json --watch"
+      }
+    },
+    "serve-electron": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node apps/desktop/electron/start.js"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx nx run desktop:serve-browser",
+          "npx nx run desktop:watch-electron",
+          "npx nx run desktop:serve-electron"
+        ],
+        "parallel": true
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "watch": false
+      }
+    },
+    "package": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx nx run desktop:build:production",
+          "npx nx run desktop:build-electron",
+          "npx electron-builder build --config apps/desktop/electron-builder.json"
+        ],
+        "parallel": false
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "desktop:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/desktop/browser",
+        "spa": true
+      }
+    }
+  }
+}

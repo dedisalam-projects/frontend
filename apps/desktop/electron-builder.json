@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/schemas/config.schema.json",
+  "appId": "com.dedisalam.desktop",
+  "productName": "Dedisalam Desktop",
+  "electronVersion": "43.1.1",
+  "directories": {
+    "output": "dist/apps/desktop-build"
+  },
+  "extraMetadata": {
+    "main": "dist/apps/desktop-electron/main.js"
+  },
+  "files": ["dist/apps/desktop/browser/**/*", "dist/apps/desktop-electron/**/*"],
+  "win": {
+    "target": "nsis"
+  },
+  "mac": {
+    "target": "dmg"
+  },
+  "linux": {
+    "target": "AppImage"
+  }
+}
