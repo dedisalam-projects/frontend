@@ -11,10 +11,10 @@ import { environment } from '../../../environments/environment';
   imports: [CommonModule, ButtonModule, CardModule, SharedHelloWorldComponent],
   template: `
     <div class="flex flex-col gap-6">
-      <p-card>
-        <ng-template pTemplate="title">
+      <div class="card">
+        <div class="font-semibold text-2xl mb-4">
           Welcome to <span class="text-blue-600 dark:text-blue-400">{{ title }}</span>
-        </ng-template>
+        </div>
 
         <p class="text-slate-600 dark:text-slate-300">
           A modular fullstack application utilizing NestJS backend services, RabbitMQ messaging,
@@ -26,18 +26,16 @@ import { environment } from '../../../environments/environment';
           <lib-hello-world [baseUrl]="environment.apiUrl" [wsUrl]="environment.wsUrl"></lib-hello-world>
         </div>
 
-        <ng-template pTemplate="footer">
-          <div class="flex gap-4">
-            <p-button icon="pi pi-bolt" (onClick)="onExplore()" label="Explore Console"></p-button>
-            <p-button
-              icon="pi pi-book"
-              label="Documentation"
-              severity="secondary"
-              variant="outlined"
-            ></p-button>
-          </div>
-        </ng-template>
-      </p-card>
+        <div class="flex gap-4 mt-6">
+          <p-button icon="pi pi-bolt" (onClick)="onExplore()" label="Explore Console"></p-button>
+          <p-button
+            icon="pi pi-book"
+            label="Documentation"
+            severity="secondary"
+            variant="outlined"
+          ></p-button>
+        </div>
+      </div>
     </div>
   `,
 })
