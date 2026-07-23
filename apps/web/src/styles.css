@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'tailwindcss';
-@plugin 'tailwindcss-primeui';
-@import 'primeicons/primeicons.css';
+@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@source "../../../libs";
+@source "../../../apps";
+@plugin 'tailwindcss-primeui';
 
 :root {
   --font-family:
@@ -10,12 +11,4 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-body {
-  font-family: var(--font-family);
-  margin: 0;
-  padding: 0;
-  background-color: #0c0f1d;
-  color: #f1f5f9;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* Sakai-NG layout will handle the body styles */

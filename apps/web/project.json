@@ -6,8 +6,16 @@
   "sourceRoot": "apps/web/src",
   "tags": [],
   "targets": {
+    "tailwind": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx @tailwindcss/cli -i apps/web/src/styles.css -o apps/web/src/tailwind.css",
+        "cwd": "{workspaceRoot}"
+      }
+    },
     "build": {
       "executor": "@angular/build:application",
+      "dependsOn": ["tailwind"],
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -21,10 +29,20 @@
             "input": "apps/web/public"
           }
         ],
-        "styles": ["apps/web/src/styles.scss"]
+        "styles": [
+          "apps/web/src/assets/styles.scss",
+          "apps/web/src/tailwind.css",
+          "node_modules/primeicons/primeicons.css"
+        ]
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/web/src/environments/environment.ts",
+              "with": "apps/web/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",

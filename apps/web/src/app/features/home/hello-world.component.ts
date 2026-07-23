@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { HelloWorldComponent as SharedHelloWorldComponent } from '@dedisalam/shared-web';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-hello-world',
@@ -22,7 +23,7 @@ import { HelloWorldComponent as SharedHelloWorldComponent } from '@dedisalam/sha
 
         <!-- Reusable Shared Hello World Component -->
         <div class="mt-4 border-t border-slate-200 dark:border-slate-700 pt-4">
-          <lib-hello-world></lib-hello-world>
+          <lib-hello-world [baseUrl]="environment.apiUrl" [wsUrl]="environment.wsUrl"></lib-hello-world>
         </div>
 
         <ng-template pTemplate="footer">
@@ -42,6 +43,7 @@ import { HelloWorldComponent as SharedHelloWorldComponent } from '@dedisalam/sha
 })
 export class HelloWorldComponent {
   title = 'Antigravity Fullstack App';
+  environment = environment;
 
   onExplore() {
     alert('Welcome to Antigravity web interface powered by Angular & PrimeNG!');
