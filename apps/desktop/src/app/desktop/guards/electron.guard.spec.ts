@@ -23,7 +23,7 @@ describe('ElectronGuard', () => {
 
   it('should still allow navigation but log warning if not in electron (browser mode)', () => {
     Object.defineProperty(mockElectronService, 'isElectron', { get: () => false });
-    const consoleSpy = vi.spyOn(console, 'warn');
+    const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
 
     const guardFn = TestBed.runInInjectionContext(() =>
       ElectronGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot),

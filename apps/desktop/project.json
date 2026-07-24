@@ -19,17 +19,36 @@
         "outputPath": "dist/apps/desktop",
         "browser": "apps/desktop/src/main.ts",
         "tsConfig": "apps/desktop/tsconfig.app.json",
+        "polyfills": ["zone.js"],
+        "baseHref": "./",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/desktop/public"
-          }
+          },
+          {
+            "glob": "**/*",
+            "input": "libs/shared/ui/src/assets",
+            "output": "assets"
+          },
+          "apps/desktop/src/favicon.ico",
+          "apps/desktop/src/assets"
         ],
-        "styles": ["apps/desktop/src/styles.scss"]
+        "styles": [
+          "libs/shared/ui/src/assets/styles.scss",
+          "apps/desktop/src/styles.scss",
+          "node_modules/primeicons/primeicons.css"
+        ]
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/desktop/src/environments/environment.ts",
+              "with": "apps/desktop/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
@@ -40,6 +59,11 @@
               "type": "anyComponentStyle",
               "maximumWarning": "4kb",
               "maximumError": "8kb"
+            },
+            {
+              "type": "any",
+              "maximumWarning": "1mb",
+              "maximumError": "2mb"
             }
           ],
           "outputHashing": "all"
@@ -55,6 +79,9 @@
       "continuous": true,
       "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
+      "options": {
+        "port": 4201
+      },
       "configurations": {
         "production": {
           "buildTarget": "desktop:build:production"
@@ -97,9 +124,11 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@angular/build:unit-test",
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "watch": false
+        "jestConfig": "apps/desktop/jest.config.js",
+        "tsConfig": "apps/desktop/tsconfig.spec.json"
       }
     },
     "package": {

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
-import { HelloWorldComponent as SharedHelloWorldComponent } from '@dedisalam/shared-web';
+import { HelloWorldComponent as SharedHelloWorldComponent } from '@dedisalam/shared/ui';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -23,7 +23,10 @@ import { environment } from '../../../environments/environment';
 
         <!-- Reusable Shared Hello World Component -->
         <div class="mt-4 border-t border-slate-200 dark:border-slate-700 pt-4">
-          <lib-hello-world [baseUrl]="environment.apiUrl" [wsUrl]="environment.wsUrl"></lib-hello-world>
+          <lib-hello-world
+            [baseUrl]="environment.apiUrl"
+            [wsUrl]="environment.wsUrl"
+          ></lib-hello-world>
         </div>
 
         <div class="flex gap-4 mt-6">

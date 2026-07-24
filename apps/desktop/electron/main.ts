@@ -7,12 +7,13 @@ import { setupAutoUpdater } from './updater';
 
 let mainWindow: BrowserWindow | null = null;
 
-const isDev = process.env['ELECTRON_IS_DEV'] === 'true';
+const isDev = process.env['ELECTRON_IS_DEV'] === 'true' || !app.isPackaged;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 768,
+    autoHideMenuBar: true,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -27,7 +28,7 @@ function createWindow() {
   });
 
   if (isDev) {
-    mainWindow.loadURL('http://localhost:4200');
+    mainWindow.loadURL('http://localhost:4201');
     mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(path.join(__dirname, '../desktop/browser/index.html'));

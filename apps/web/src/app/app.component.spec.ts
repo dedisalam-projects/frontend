@@ -1,21 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NxWelcome } from './nx-welcome';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
-import { vi } from 'vitest';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
-  let mockHttpClient: { get: ReturnType<typeof vi.fn> };
-
   beforeEach(async () => {
-    mockHttpClient = {
-      get: vi.fn().mockReturnValue(of({ message: 'Hello World', services: { user: 'ok' } })),
-    };
-
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcome],
-      providers: [{ provide: HttpClient, useValue: mockHttpClient }],
+      imports: [AppComponent, RouterTestingModule],
     }).compileComponents();
   });
 

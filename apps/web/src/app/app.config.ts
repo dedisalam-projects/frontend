@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { providePrimeNG } from 'primeng/config';
-import { correlationIdInterceptor, baseUrlInterceptor, API_BASE_URL } from '@dedisalam/shared-web';
+import { correlationIdInterceptor, baseUrlInterceptor, API_BASE_URL } from '@dedisalam/shared/util';
 import Aura from '@primeuix/themes/aura';
 import { appRoutes } from './app.routes';
 import { environment } from '../environments/environment';

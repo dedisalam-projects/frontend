@@ -15,7 +15,9 @@
     "baseUrl": ".",
     "ignoreDeprecations": "5.0",
     "paths": {
-      "@dedisalam/shared-web": ["./libs/shared-web/src/index.ts"]
+      "@dedisalam/shared/data-access": ["libs/shared/data-access/src/index.ts"],
+      "@dedisalam/shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@dedisalam/shared/util": ["libs/shared/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

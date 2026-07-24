@@ -3,7 +3,7 @@ const http = require('http');
 
 function checkServer() {
   http
-    .get('http://localhost:4200', () => {
+    .get('http://localhost:4201', () => {
       console.log('Angular dev server is ready, starting Electron...');
       startElectron();
     })
@@ -24,5 +24,5 @@ function startElectron() {
   });
 }
 
-console.log('Waiting for Angular dev server on port 4200...');
+console.log('Waiting for Angular dev server on port 4201...');
 checkServer();
