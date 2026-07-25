@@ -71,8 +71,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying to local Docker host...'
-                // Menarik image terbaru dan me-restart container secara lokal (karena Jenkins ada di server yang sama)
-                sh 'cd /home/dedisalam/fullstack/backend && docker compose -f docker-compose.prod.yml pull && docker compose -f docker-compose.prod.yml up -d'
+                // Unduh compose file terbaru lalu tarik image dan restart kontainer web
+                sh 'curl -sO https://raw.githubusercontent.com/dedisalam/backend/master/docker-compose.prod.yml'
+                sh 'docker compose -p fullstack -f docker-compose.prod.yml pull web && docker compose -p fullstack -f docker-compose.prod.yml up -d web'
             }
         }
     }
