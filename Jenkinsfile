@@ -63,9 +63,9 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 echo 'Building and pushing frontend images...'
-                sh 'docker build -t dedisalam/fullstack-web:latest -f docker/web/Dockerfile.prod .'
+                sh 'docker build -t dedisalam/frontend-web:latest -f docker/web/Dockerfile.prod .'
                 
-                sh 'docker push dedisalam/fullstack-web:latest'
+                sh 'docker push dedisalam/frontend-web:latest'
             }
         }
         
