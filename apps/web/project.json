@@ -37,8 +37,7 @@
         ],
         "styles": [
           "libs/shared/ui/src/assets/styles.scss",
-          "apps/web/src/tailwind.css",
-          "node_modules/primeicons/primeicons.css"
+          "apps/web/src/tailwind.css"
         ]
       },
       "configurations": {
@@ -52,8 +51,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1mb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",

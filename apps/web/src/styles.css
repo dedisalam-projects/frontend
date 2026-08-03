@@ -1,9 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "ng-zorro-antd/ng-zorro-antd.min.css";
+@import "tailwindcss";
 @source "../../../libs";
 @source "../../../apps";
-@plugin 'tailwindcss-primeui';
 
 :root {
   --font-family:
@@ -11,4 +10,4 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-/* Sakai-NG layout will handle the body styles */
+/* Ant Design layout & component styles */

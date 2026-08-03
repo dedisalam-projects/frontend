@@ -1,25 +1,25 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { HelloWorldComponent as SharedHelloWorldComponent } from '@dedisalam/shared/ui';
 import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-desktop-hello-world',
   standalone: true,
-  imports: [CommonModule, ButtonModule, CardModule, SharedHelloWorldComponent],
+  imports: [CommonModule, NzButtonModule, NzCardModule, NzIconModule, SharedHelloWorldComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex flex-col gap-6">
-      <div class="card">
+      <nz-card>
         <div class="font-semibold text-2xl mb-4">
           Welcome to <span class="text-blue-600 dark:text-blue-400">{{ title }}</span>
         </div>
 
         <p class="text-slate-600 dark:text-slate-300">
-          Cross-platform desktop client powered by Electron, Angular 21, and the Sakai-NG Admin
-          Template.
+          Cross-platform desktop client powered by Electron, Angular 22, and NG-ZORRO (Ant Design).
         </p>
 
         <!-- Reusable Shared Hello World Component -->
@@ -31,13 +31,11 @@ import { environment } from '../../environments/environment';
         </div>
 
         <div class="flex gap-4 mt-6">
-          <p-button
-            icon="pi pi-bolt"
-            (onClick)="onExplore()"
-            label="Explore Desktop App"
-          ></p-button>
+          <button nz-button nzType="primary" (click)="onExplore()">
+            <span nz-icon nzType="thunderbolt"></span> Explore Desktop App
+          </button>
         </div>
-      </div>
+      </nz-card>
     </div>
   `,
 })
@@ -46,6 +44,6 @@ export class DesktopHelloWorldComponent {
   environment = environment;
 
   onExplore() {
-    alert('Welcome to Antigravity Desktop App powered by Electron & PrimeNG!');
+    alert('Welcome to Antigravity Desktop App powered by Electron & NG-ZORRO!');
   }
 }

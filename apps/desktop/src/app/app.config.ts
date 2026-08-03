@@ -6,11 +6,14 @@ import {
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { providePrimeNG } from 'primeng/config';
+import { provideNzI18n, en_US } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
 import { correlationIdInterceptor, baseUrlInterceptor, API_BASE_URL } from '@dedisalam/shared/util';
 import { environment } from '../environments/environment';
-import Aura from '@primeuix/themes/aura';
 import { appRoutes } from './app.routes';
+
+registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,13 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes, withHashLocation()),
     provideHttpClient(withInterceptors([correlationIdInterceptor, baseUrlInterceptor])),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: {
-          ripple: true,
-        },
-      },
-    }),
+    provideNzI18n(en_US),
   ],
 };

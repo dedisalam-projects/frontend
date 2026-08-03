@@ -1,11 +1,15 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { providePrimeNG } from 'primeng/config';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideNzI18n, en_US } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
 import { correlationIdInterceptor, baseUrlInterceptor, API_BASE_URL } from '@dedisalam/shared/util';
-import Aura from '@primeuix/themes/aura';
 import { appRoutes } from './app.routes';
 import { environment } from '../environments/environment';
+
+registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,13 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     provideHttpClient(withInterceptors([correlationIdInterceptor, baseUrlInterceptor])),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: {
-          ripple: true,
-        },
-      },
-    }),
+    provideAnimationsAsync(),
+    provideNzI18n(en_US),
   ],
 };

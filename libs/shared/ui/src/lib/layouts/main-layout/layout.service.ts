@@ -21,6 +21,12 @@ interface LayoutState {
   providedIn: 'root',
 })
 export class LayoutService {
+  isCollapsed = signal<boolean>(false);
+
+  toggleSidebar() {
+    this.isCollapsed.update((collapsed) => !collapsed);
+  }
+
   layoutConfig = signal<LayoutConfig>({
     preset: 'Aura',
     primary: 'emerald',

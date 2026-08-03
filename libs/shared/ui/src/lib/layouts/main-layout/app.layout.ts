@@ -1,6 +1,7 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { AppTopbar } from './app.topbar';
 import { AppSidebar } from './app.sidebar';
 import { AppFooter } from './app.footer';
@@ -9,42 +10,22 @@ import { LayoutService } from './layout.service';
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [CommonModule, AppTopbar, AppSidebar, RouterModule, AppFooter],
-  template: `<div class="layout-wrapper" [ngClass]="containerClass()">
-    <app-topbar></app-topbar>
-    <app-sidebar></app-sidebar>
-    <div class="layout-main-container">
-      <div class="layout-main">
-        <router-outlet></router-outlet>
-      </div>
-      <app-footer></app-footer>
-    </div>
-    <div class="layout-mask"></div>
-  </div> `,
+  imports: [CommonModule, RouterModule, NzLayoutModule, AppTopbar, AppSidebar, AppFooter],
+  template: `
+    <nz-layout class="min-h-screen">
+      <app-sidebar></app-sidebar>
+      <nz-layout class="flex flex-col min-h-screen bg-gray-50">
+        <app-topbar></app-topbar>
+        <nz-content class="p-6 flex-grow">
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100 min-h-[calc(100vh-160px)]">
+            <router-outlet></router-outlet>
+          </div>
+        </nz-content>
+        <app-footer></app-footer>
+      </nz-layout>
+    </nz-layout>
+  `,
 })
 export class AppLayout {
   layoutService = inject(LayoutService);
-
-  constructor() {
-    effect(() => {
-      const state = this.layoutService.layoutState();
-      if (state.mobileMenuActive) {
-        document.body.classList.add('blocked-scroll');
-      } else {
-        document.body.classList.remove('blocked-scroll');
-      }
-    });
-  }
-
-  containerClass = computed(() => {
-    const config = this.layoutService.layoutConfig();
-    const state = this.layoutService.layoutState();
-    return {
-      'layout-overlay': config.menuMode === 'overlay',
-      'layout-static': config.menuMode === 'static',
-      'layout-static-inactive': state.staticMenuDesktopInactive && config.menuMode === 'static',
-      'layout-overlay-active': state.overlayMenuActive,
-      'layout-mobile-active': state.mobileMenuActive,
-    };
-  });
 }

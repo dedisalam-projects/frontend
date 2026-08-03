@@ -44,13 +44,12 @@ pipeline {
             }
         }
         
-        stage('Security Audit') {
+        stage('Dependency Audit') {
             steps {
-                echo 'Running security scan on dependencies...'
-                sh 'npm audit --audit-level=high || true'
-                echo 'Running container image scan...'
-                // sh 'trivy image dedisalam/frontend:latest'
-                echo '(Placeholder) Trivy scan will run here'
+                echo 'Running security scan and dependency checks...'
+                sh 'npm audit --audit-level=high'
+                sh 'npx depcheck --json || true'
+                sh 'npx npm-check-updates --errorLevel 2 || echo "WARNING: Outdated deps found"'
             }
         }
         
