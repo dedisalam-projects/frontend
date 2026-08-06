@@ -1,0 +1,36 @@
+<div class="register-container">
+  <nz-card nzTitle="Sign Up" class="register-card">
+    <form nz-form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+      
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Name!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="name" placeholder="Full Name" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input a valid Email!">
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="email" nz-input formControlName="email" placeholder="Email" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password (min 8 characters)!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Password" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <button nz-button nzType="primary" nzBlock [nzLoading]="isLoading" class="register-form-button">Register</button>
+      
+      <div class="login-link">
+        Already have an account? <a routerLink="/login">Log in</a>
+      </div>
+    </form>
+  </nz-card>
+</div>
