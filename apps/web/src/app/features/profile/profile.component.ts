@@ -8,7 +8,12 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { AuthService, User } from '@dedisalam/shared/data-access';
+import {
+  AuthService,
+  User,
+  ProfileResponse,
+  UpdateProfileDto,
+} from '@dedisalam/shared/data-access';
 
 @Component({
   selector: 'app-profile',
@@ -48,7 +53,7 @@ export class ProfileComponent implements OnInit {
   loadProfile(): void {
     this.isLoading = true;
     this.authService.getProfile().subscribe({
-      next: (res: any) => {
+      next: (res: ProfileResponse) => {
         this.user = res.data || null;
         this.profileForm.patchValue({
           name: this.user?.name,
@@ -75,13 +80,13 @@ export class ProfileComponent implements OnInit {
   saveProfile(): void {
     if (this.profileForm.valid) {
       this.isSaving = true;
-      const data: any = { name: this.profileForm.value.name };
+      const data: UpdateProfileDto = { name: this.profileForm.value.name || undefined };
       if (this.profileForm.value.password) {
         data.password = this.profileForm.value.password;
       }
 
       this.authService.updateProfile(data).subscribe({
-        next: (res: any) => {
+        next: (res: ProfileResponse) => {
           this.user = res.data || null;
           this.message.success('Profile updated successfully!');
           this.isSaving = false;

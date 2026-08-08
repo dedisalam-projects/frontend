@@ -10,6 +10,7 @@ import type {
   RegisterDto,
   RefreshTokenDto,
   UpdateProfileDto,
+  AuthResponseData,
 } from '../api/model';
 
 @Injectable({
@@ -56,7 +57,7 @@ export class AuthService {
     return this.api.authLogin(credentials).pipe(
       tap((res) => {
         if (res.data) {
-          this.setSession(res.data as any);
+          this.setSession(res.data);
         }
       }),
     );
@@ -94,7 +95,7 @@ export class AuthService {
     return this.api.authRefresh({ refreshToken: refresh }).pipe(
       tap((res) => {
         if (res.data) {
-          this.setSession(res.data as any);
+          this.setSession(res.data);
         }
       }),
     );
@@ -122,11 +123,17 @@ export class AuthService {
     );
   }
 
-  private setSession(authData: { accessToken: string; refreshToken: string; user: User }): void {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, authData.accessToken);
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, authData.refreshToken);
-    localStorage.setItem('user', JSON.stringify(authData.user));
-    this.currentUserSignal.set(authData.user);
+  private setSession(authData: AuthResponseData): void {
+    if (authData.accessToken) {
+      localStorage.setItem(this.ACCESS_TOKEN_KEY, authData.accessToken);
+    }
+    if (authData.refreshToken) {
+      localStorage.setItem(this.REFRESH_TOKEN_KEY, authData.refreshToken);
+    }
+    if (authData.user) {
+      localStorage.setItem('user', JSON.stringify(authData.user));
+      this.currentUserSignal.set(authData.user);
+    }
   }
 
   clearSession(): void {
