@@ -1,0 +1,44 @@
+<div class="profile-container">
+  <nz-card nzTitle="User Profile" class="profile-card" [nzExtra]="extraTemplate">
+    <nz-spin [nzSpinning]="isLoading">
+      <ng-container *ngIf="user">
+        <ng-container *ngIf="!isEditing; else editTemplate">
+          <nz-descriptions nzBordered [nzColumn]="1">
+            <nz-descriptions-item nzTitle="Name"><span data-testid="profile-name-text">{{ user.name }}</span></nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Email"><span data-testid="profile-email-text">{{ user.email }}</span></nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Role"><span data-testid="profile-role-text">{{ user.role }}</span></nz-descriptions-item>
+          </nz-descriptions>
+        </ng-container>
+
+        <ng-template #editTemplate>
+          <form nz-form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input your name!">
+                <input nz-input formControlName="name" id="name" data-testid="profile-name-input" />
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password">New Password</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24">
+                <input nz-input type="password" formControlName="password" id="password" placeholder="Leave blank to keep current password" data-testid="profile-password-input" />
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item nz-row class="register-area">
+              <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button nz-button nzType="primary" [nzLoading]="isSaving" data-testid="profile-save-button">Save Changes</button>
+                <button nz-button nzType="default" type="button" (click)="toggleEdit()" style="margin-left: 8px">Cancel</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </ng-template>
+      </ng-container>
+    </nz-spin>
+  </nz-card>
+  <ng-template #extraTemplate>
+    <button nz-button nzType="default" (click)="toggleEdit()" *ngIf="!isEditing && !isLoading" data-testid="profile-edit-button">Edit</button>
+    <button nz-button nzType="primary" nzDanger (click)="logout()" style="margin-left: 8px" data-testid="profile-logout-button">Logout</button>
+  </ng-template>
+</div>

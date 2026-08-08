@@ -22,7 +22,7 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4201';
  * (.ts/.js/.mts/.mjs/.cts/.cjs).
  */
 export default defineConfig({
-  ...nxE2EPreset(import.meta.dirname, { testDir: './src' }),
+  ...nxE2EPreset(__dirname, { testDir: './src' }),
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
