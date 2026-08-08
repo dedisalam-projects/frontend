@@ -902,7 +902,7 @@ nz-affix {
   display: flex;
   align-items: center;
   padding: 8px 15px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   border-radius: 2px;
 }
 .ant-alert-content {
@@ -1171,10 +1171,10 @@ nz-link {
   display: block;
 }
 .ant-anchor-wrapper-horizontal {
-  margin-left: unset;
-  padding-left: unset;
   margin-bottom: -4px;
+  margin-left: unset;
   padding-bottom: 4px;
+  padding-left: unset;
 }
 .ant-anchor-wrapper-horizontal .ant-anchor {
   display: flex;
@@ -1185,7 +1185,7 @@ nz-link {
   width: 100%;
   height: unset;
 }
-.ant-anchor-wrapper-horizontal .ant-anchor-ink:before {
+.ant-anchor-wrapper-horizontal .ant-anchor-ink::before {
   width: 100%;
   height: 2px;
 }
@@ -4582,7 +4582,7 @@ nz-collapse-panel {
   flex: 1 1 auto;
   min-width: 1px;
   font-size: 14px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .ant-comment-content-author {
   display: flex;
@@ -5836,7 +5836,6 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-month-panel .ant-picker-c
   color: rgba(0,0,0,.85);
   font-size: 14px;
   line-height: 1.5715;
-  word-break: break-word;
   overflow-wrap: break-word;
 }
 .ant-descriptions-item {
@@ -14344,8 +14343,8 @@ textarea.ant-mentions {
   white-space: inherit;
   text-align: inherit;
   vertical-align: top;
-  word-wrap: break-word;
   word-break: inherit;
+  overflow-wrap: break-word;
   tab-size: inherit;
 }
 .ant-mentions>.ant-input {
@@ -14780,7 +14779,7 @@ textarea.ant-mentions {
   font-weight: 500;
   font-size: 16px;
   line-height: 22px;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .ant-modal-content {
   position: relative;
@@ -14833,7 +14832,7 @@ textarea.ant-mentions {
   padding: 24px;
   font-size: 14px;
   line-height: 1.5715;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .ant-modal-footer {
   padding: 10px 16px;
@@ -15039,7 +15038,7 @@ textarea.ant-mentions {
   padding: 16px 24px;
   overflow: hidden;
   line-height: 1.5715;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   background: #fff;
   border-radius: 2px;
   box-shadow: 0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);
@@ -17999,9 +17998,6 @@ span.ant-radio+* {
   left: 0;
   display: block;
   width: 100%;
-}
-.ant-select-dropdown .cdk-virtual-scroll-content-wrapper {
-  right: 0;
 }
 .ant-select-dropdown .full-width {
   contain: initial;
@@ -21673,7 +21669,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   position: relative;
   top: -7.001px;
   margin: 0 0 0 26px;
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .ant-timeline-item-last>.ant-timeline-item-tail {
   display: none;
@@ -21826,7 +21822,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
   color: #fff;
   text-align: start;
   text-decoration: none;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   background-color: rgba(0,0,0,.75);
   border-radius: 2px;
   box-shadow: 0 3px 6px -4px rgba(0,0,0,.12),0 6px 16px 0 rgba(0,0,0,.08),0 9px 28px 8px rgba(0,0,0,.05);
@@ -22323,7 +22319,7 @@ cdk-virtual-scroll-viewport.ant-table-body {
 }
 .ant-typography {
   color: rgba(0,0,0,.85);
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .ant-typography.ant-typography-secondary {
   color: rgba(0,0,0,.45);
@@ -22515,7 +22511,7 @@ div.ant-typography-edit-content {
 .ant-typography pre {
   padding: .4em .6em;
   white-space: pre-wrap;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   background: rgba(150,150,150,.1);
   border: 1px solid rgba(100,100,100,.2);
   border-radius: 3px;
@@ -25405,7 +25401,7 @@ nz-space-item {
   border-inline-start: 0;
   inset-inline-start: 46.5%;
 }
-.ant-color-picker-presets-color-bright.ant-color-picker-presets-color-checked::after,.ant-color-picker-presets-color-checked.ant-color-picker-presets-color-bright::after {
+.ant-color-picker-presets-color-checked.ant-color-picker-presets-color-bright::after {
   border-color: rgba(0,0,0,.88);
 }
 .ant-hash-code {
@@ -26266,7 +26262,6 @@ nz-space-item {
     --color-slate-300: oklch(86.9% 0.022 252.894);
     --color-slate-600: oklch(44.6% 0.043 257.281);
     --color-slate-700: oklch(37.2% 0.044 257.287);
-    --color-slate-800: oklch(27.9% 0.041 260.031);
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
@@ -26277,8 +26272,6 @@ nz-space-item {
     --color-gray-900: oklch(21% 0.034 264.665);
     --color-white: #fff;
     --spacing: 0.25rem;
-    --text-xs: 0.75rem;
-    --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-lg: 1.125rem;

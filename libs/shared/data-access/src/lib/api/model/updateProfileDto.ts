@@ -5,6 +5,7 @@
  * OpenAPI spec version: 1.0
  */
 
-export type HelloResponseServices = {
-  user?: string;
-};
+export interface UpdateProfileDto {
+  name?: string;
+  password?: string;
+}

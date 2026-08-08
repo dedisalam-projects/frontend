@@ -1,47 +1,34 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { Router } from '@angular/router';
-
-// API Models (as per contract)
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-export interface AuthResponse {
-  statusCode: number;
-  message: string;
-  data: {
-    accessToken: string;
-    refreshToken: string;
-    user: User;
-  };
-  meta?: any;
-}
-
-export interface ProfileResponse {
-  statusCode: number;
-  message: string;
-  data: User;
-  meta?: any;
-}
+import { Observable, tap, catchError, throwError } from 'rxjs';
+import { APIGatewayService } from '../api/gateway.service.service';
+import type {
+  User,
+  AuthResponse,
+  ProfileResponse,
+  LoginDto,
+  RegisterDto,
+  RefreshTokenDto,
+  UpdateProfileDto,
+  AuthResponseData,
+} from '../api/model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private http = inject(HttpClient);
+  private api = inject(APIGatewayService);
   private router = inject(Router);
 
-  private readonly API_URL = '/api/v1';
   private readonly ACCESS_TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
 
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
+  // Internal writable signal
+  private currentUserSignal = signal<User | null>(null);
+
+  // Public readonly signals
+  public readonly currentUser = this.currentUserSignal.asReadonly();
+  public readonly isLoggedIn = computed(() => !!this.currentUserSignal());
 
   constructor() {
     this.loadUserFromStorage();
@@ -51,9 +38,9 @@ export class AuthService {
     const userJson = localStorage.getItem('user');
     if (userJson) {
       try {
-        this.currentUserSubject.next(JSON.parse(userJson));
+        this.currentUserSignal.set(JSON.parse(userJson));
       } catch (e) {
-        this.currentUserSubject.next(null);
+        this.currentUserSignal.set(null);
       }
     }
   }
@@ -66,25 +53,25 @@ export class AuthService {
     return localStorage.getItem(this.REFRESH_TOKEN_KEY);
   }
 
-  get isLoggedIn(): boolean {
-    return !!this.accessToken;
+  login(credentials: LoginDto): Observable<AuthResponse> {
+    return this.api.authLogin(credentials).pipe(
+      tap((res) => {
+        if (res.data) {
+          this.setSession(res.data);
+        }
+      }),
+    );
   }
 
-  login(credentials: any): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${this.API_URL}/auth/login`, credentials)
-      .pipe(tap((res) => this.setSession(res.data)));
-  }
-
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.API_URL}/auth/register`, data);
+  register(data: RegisterDto): Observable<void> {
+    return this.api.authRegister(data);
   }
 
   logout(): void {
     const refresh = this.refreshToken;
     if (refresh) {
-      this.http
-        .post(`${this.API_URL}/auth/logout`, { refreshToken: refresh })
+      this.api
+        .authLogout({ refreshToken: refresh })
         .pipe(
           catchError(() => {
             this.clearSession();
@@ -105,45 +92,55 @@ export class AuthService {
     if (!refresh) {
       return throwError(() => new Error('No refresh token available'));
     }
-    return this.http
-      .post<AuthResponse>(`${this.API_URL}/auth/refresh`, { refreshToken: refresh })
-      .pipe(tap((res) => this.setSession(res.data)));
+    return this.api.authRefresh({ refreshToken: refresh }).pipe(
+      tap((res) => {
+        if (res.data) {
+          this.setSession(res.data);
+        }
+      }),
+    );
   }
 
   getProfile(): Observable<ProfileResponse> {
-    return this.http.get<ProfileResponse>(`${this.API_URL}/users/me`).pipe(
+    return this.api.usersMeGet().pipe(
       tap((res) => {
         if (res.data) {
           localStorage.setItem('user', JSON.stringify(res.data));
-          this.currentUserSubject.next(res.data);
+          this.currentUserSignal.set(res.data as User);
         }
       }),
     );
   }
 
-  updateProfile(data: any): Observable<ProfileResponse> {
-    return this.http.patch<ProfileResponse>(`${this.API_URL}/users/me`, data).pipe(
+  updateProfile(data: UpdateProfileDto): Observable<ProfileResponse> {
+    return this.api.usersMePatch(data).pipe(
       tap((res) => {
         if (res.data) {
           localStorage.setItem('user', JSON.stringify(res.data));
-          this.currentUserSubject.next(res.data);
+          this.currentUserSignal.set(res.data as User);
         }
       }),
     );
   }
 
-  private setSession(authData: { accessToken: string; refreshToken: string; user: User }): void {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, authData.accessToken);
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, authData.refreshToken);
-    localStorage.setItem('user', JSON.stringify(authData.user));
-    this.currentUserSubject.next(authData.user);
+  private setSession(authData: AuthResponseData): void {
+    if (authData.accessToken) {
+      localStorage.setItem(this.ACCESS_TOKEN_KEY, authData.accessToken);
+    }
+    if (authData.refreshToken) {
+      localStorage.setItem(this.REFRESH_TOKEN_KEY, authData.refreshToken);
+    }
+    if (authData.user) {
+      localStorage.setItem('user', JSON.stringify(authData.user));
+      this.currentUserSignal.set(authData.user);
+    }
   }
 
   clearSession(): void {
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
     localStorage.removeItem('user');
-    this.currentUserSubject.next(null);
+    this.currentUserSignal.set(null);
     this.router.navigate(['/login']);
   }
 }

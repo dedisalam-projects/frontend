@@ -1,43 +1,27 @@
 {
   "openapi": "3.0.0",
-  "info": {
-    "title": "API Gateway",
-    "description": "The API Gateway entry point description",
-    "version": "1.0"
-  },
+  "info": { "title": "API Gateway", "version": "1.0" },
   "paths": {
-    "/api/v1/hello": {
-      "get": {
-        "operationId": "appControllerGetHello",
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HelloResponse"
-                }
-              }
-            }
-          }
-        }
-      }
+    "/api/v1/hello": { "get": { "operationId": "getHello", "responses": { "200": { "description": "Success", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/HelloResponse" } } } } } } },
+    "/api/v1/auth/login": { "post": { "operationId": "authLogin", "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/LoginDto" } } } }, "responses": { "200": { "description": "Success", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponse" } } } } } } },
+    "/api/v1/auth/register": { "post": { "operationId": "authRegister", "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RegisterDto" } } } }, "responses": { "201": { "description": "Created" } } } },
+    "/api/v1/auth/refresh": { "post": { "operationId": "authRefresh", "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RefreshTokenDto" } } } }, "responses": { "200": { "description": "Success", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponse" } } } } } } },
+    "/api/v1/auth/logout": { "post": { "operationId": "authLogout", "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/RefreshTokenDto" } } } }, "responses": { "200": { "description": "Success" } } } },
+    "/api/v1/users/me": {
+      "get": { "operationId": "usersMeGet", "responses": { "200": { "description": "Success", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProfileResponse" } } } } } },
+      "patch": { "operationId": "usersMePatch", "requestBody": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UpdateProfileDto" } } } }, "responses": { "200": { "description": "Success", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ProfileResponse" } } } } } }
     }
   },
   "components": {
     "schemas": {
-      "HelloResponse": {
-        "type": "object",
-        "properties": {
-          "message": { "type": "string" },
-          "services": {
-            "type": "object",
-            "properties": {
-              "user": { "type": "string" }
-            }
-          }
-        }
-      }
+      "HelloResponse": { "type": "object", "properties": { "message": { "type": "string" }, "services": { "type": "object", "properties": { "user": { "type": "string" } } } } },
+      "LoginDto": { "type": "object", "properties": { "email": { "type": "string" }, "password": { "type": "string" } } },
+      "RegisterDto": { "type": "object", "properties": { "name": { "type": "string" }, "email": { "type": "string" }, "password": { "type": "string" } } },
+      "RefreshTokenDto": { "type": "object", "properties": { "refreshToken": { "type": "string" } } },
+      "UpdateProfileDto": { "type": "object", "properties": { "name": { "type": "string" }, "password": { "type": "string" } } },
+      "User": { "type": "object", "properties": { "id": { "type": "string" }, "name": { "type": "string" }, "email": { "type": "string" }, "role": { "type": "string" } } },
+      "AuthResponse": { "type": "object", "properties": { "statusCode": { "type": "number" }, "message": { "type": "string" }, "data": { "type": "object", "properties": { "accessToken": { "type": "string" }, "refreshToken": { "type": "string" }, "user": { "$ref": "#/components/schemas/User" } } } } },
+      "ProfileResponse": { "type": "object", "properties": { "statusCode": { "type": "number" }, "message": { "type": "string" }, "data": { "$ref": "#/components/schemas/User" } } }
     }
   }
 }
