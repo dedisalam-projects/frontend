@@ -7,7 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzCardModule } from 'ng-zorro-antd/card';
-import { AuthService } from '@dedisalam/shared-data-access';
+import { AuthService } from '@dedisalam/shared/data-access';
 
 @Component({
   selector: 'app-register',
@@ -41,7 +41,7 @@ export class RegisterComponent {
   submitForm(): void {
     if (this.registerForm.valid) {
       this.isLoading = true;
-      this.authService.register(this.registerForm.value).subscribe({
+      this.authService.register(this.registerForm.value as any).subscribe({
         next: () => {
           this.isLoading = false;
           this.message.success('Registration successful! Please login.');

@@ -5,6 +5,8 @@
  * OpenAPI spec version: 1.0
  */
 
-export type HelloResponseServices = {
-  user?: string;
-};
+export interface RegisterDto {
+  name?: string;
+  email?: string;
+  password?: string;
+}

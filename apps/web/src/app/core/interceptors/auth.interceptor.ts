@@ -8,7 +8,7 @@ import {
 import { inject } from '@angular/core';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
-import { AuthService } from '@dedisalam/shared-data-access'; // we will use absolute import or relative
+import { AuthService } from '@dedisalam/shared/data-access';
 
 let isRefreshing = false;
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);
@@ -44,11 +44,12 @@ export const authInterceptor: HttpInterceptorFn = (
           return authService.refreshAccessToken().pipe(
             switchMap((tokenResponse) => {
               isRefreshing = false;
-              refreshTokenSubject.next(tokenResponse.data.accessToken);
+              const newToken = tokenResponse.data?.accessToken || '';
+              refreshTokenSubject.next(newToken);
               return next(
                 req.clone({
                   setHeaders: {
-                    Authorization: `Bearer ${tokenResponse.data.accessToken}`,
+                    Authorization: `Bearer ${newToken}`,
                   },
                 }),
               );

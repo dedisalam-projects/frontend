@@ -65,7 +65,7 @@ export class HelloWorldComponent implements OnInit, OnDestroy {
 
   fetchHello() {
     this.loading.set(true);
-    this.apiService.appControllerGetHello().subscribe({
+    this.apiService.getHello().subscribe({
       next: (res: HelloResponse) => {
         this.apiData.set(res);
         this.loading.set(false);

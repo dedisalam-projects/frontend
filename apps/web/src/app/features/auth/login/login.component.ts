@@ -8,7 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzCardModule } from 'ng-zorro-antd/card';
-import { AuthService } from '@dedisalam/shared-data-access';
+import { AuthService } from '@dedisalam/shared/data-access';
 
 @Component({
   selector: 'app-login',
@@ -43,7 +43,7 @@ export class LoginComponent {
   submitForm(): void {
     if (this.loginForm.valid) {
       this.isLoading = true;
-      this.authService.login(this.loginForm.value).subscribe({
+      this.authService.login(this.loginForm.value as any).subscribe({
         next: () => {
           this.message.success('Login successful!');
           this.router.navigate(['/profile']);

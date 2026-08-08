@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@dedisalam/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@dedisalam/shared/ui": ["libs/shared/ui/src/index.ts"],
