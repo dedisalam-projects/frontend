@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private message = inject(NzMessageService);
+  private cdr = inject(ChangeDetectorRef);
 
   user: User | null = null;
   isLoading = true;
@@ -59,10 +60,12 @@ export class ProfileComponent implements OnInit {
           name: this.user?.name,
         });
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.message.error(err.error?.message || 'Failed to load profile');
         this.isLoading = false;
+        this.cdr.detectChanges();
       },
     });
   }
