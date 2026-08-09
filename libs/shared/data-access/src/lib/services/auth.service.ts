@@ -24,11 +24,11 @@ export class AuthService {
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
 
   // Internal writable signal
-  private currentUserSignal = signal<User | null>(null);
+  private _currentUser = signal<User | null>(null);
 
   // Public readonly signals
-  public readonly currentUser = this.currentUserSignal.asReadonly();
-  public readonly isLoggedIn = computed(() => !!this.currentUserSignal());
+  public currentUser = computed(() => this._currentUser());
+  public isLoggedIn = computed(() => !!this._currentUser());
 
   constructor() {
     this.loadUserFromStorage();
@@ -38,9 +38,9 @@ export class AuthService {
     const userJson = localStorage.getItem('user');
     if (userJson) {
       try {
-        this.currentUserSignal.set(JSON.parse(userJson));
+        this._currentUser.set(JSON.parse(userJson));
       } catch (e) {
-        this.currentUserSignal.set(null);
+        this._currentUser.set(null);
       }
     }
   }
@@ -106,7 +106,7 @@ export class AuthService {
       tap((res) => {
         if (res.data) {
           localStorage.setItem('user', JSON.stringify(res.data));
-          this.currentUserSignal.set(res.data as User);
+          this._currentUser.set(res.data as User);
         }
       }),
     );
@@ -117,7 +117,7 @@ export class AuthService {
       tap((res) => {
         if (res.data) {
           localStorage.setItem('user', JSON.stringify(res.data));
-          this.currentUserSignal.set(res.data as User);
+          this._currentUser.set(res.data as User);
         }
       }),
     );
@@ -132,7 +132,7 @@ export class AuthService {
     }
     if (authData.user) {
       localStorage.setItem('user', JSON.stringify(authData.user));
-      this.currentUserSignal.set(authData.user);
+      this._currentUser.set(authData.user);
     }
   }
 
@@ -140,7 +140,7 @@ export class AuthService {
     localStorage.removeItem(this.ACCESS_TOKEN_KEY);
     localStorage.removeItem(this.REFRESH_TOKEN_KEY);
     localStorage.removeItem('user');
-    this.currentUserSignal.set(null);
+    this._currentUser.set(null);
     this.router.navigate(['/login']);
   }
 }
