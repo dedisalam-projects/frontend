@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-@import "ng-zorro-antd/ng-zorro-antd.min.css";
+@import "@delon/theme/default.css";
 @import "tailwindcss";
 @source "../../../libs";
 @source "../../../apps";
