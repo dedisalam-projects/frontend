@@ -79,6 +79,8 @@
     "@angular/platform-browser-dynamic": "~22.0.0",
     "@angular/router": "~22.0.0",
     "@ant-design/icons-angular": "^22.0.0",
+    "@delon/abc": "^21.3.0",
+    "@delon/theme": "^21.3.0",
     "ng-zorro-antd": "^22.0.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.3",

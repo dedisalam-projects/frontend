@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { AppLayout } from '@dedisalam/shared/ui';
+import { LayoutDefaultComponent } from './layouts/default/default.component';
 import { authGuard } from './core/guards/auth.guard';
 
 export const appRoutes: Route[] = [
@@ -15,7 +15,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    component: AppLayout,
+    component: LayoutDefaultComponent,
     children: [
       {
         path: '',

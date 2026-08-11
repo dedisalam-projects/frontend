@@ -1,0 +1,5 @@
+<svg viewBox="0 0 160 40" width="160" height="40" xmlns="http://www.w3.org/2000/svg">
+  <rect width="40" height="40" rx="8" fill="#1890ff"/>
+  <text x="20" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#fff" font-family="Arial" font-size="20" font-weight="bold">AG</text>
+  <text x="50" y="50%" dominant-baseline="middle" text-anchor="start" fill="#1890ff" font-family="Arial" font-size="20" font-weight="bold">Antigravity</text>
+</svg>
