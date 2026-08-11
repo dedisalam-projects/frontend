@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuService } from '@delon/theme';
 
@@ -10,7 +10,7 @@ import { MenuService } from '@delon/theme';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  constructor(private menuSrv: MenuService) {}
+  private menuSrv = inject(MenuService);
 
   ngOnInit(): void {
     this.menuSrv.add([

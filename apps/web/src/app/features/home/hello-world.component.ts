@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -9,7 +9,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-hello-world',
   standalone: true,
-  imports: [CommonModule, NzButtonModule, NzCardModule, NzIconModule, SharedHelloWorldComponent],
+  imports: [NzButtonModule, NzCardModule, NzIconModule, SharedHelloWorldComponent],
   template: `
     <div class="flex flex-col gap-6">
       <nz-card>
