@@ -1,16 +1,14 @@
 <div class="profile-container">
   <nz-card nzTitle="User Profile" class="profile-card" [nzExtra]="extraTemplate">
     <nz-spin [nzSpinning]="isLoading">
-      <ng-container *ngIf="user">
-        <ng-container *ngIf="!isEditing; else editTemplate">
+      @if (user) {
+        @if (!isEditing) {
           <nz-descriptions nzBordered [nzColumn]="1">
             <nz-descriptions-item nzTitle="Name"><span data-testid="profile-name-text">{{ user.name }}</span></nz-descriptions-item>
             <nz-descriptions-item nzTitle="Email"><span data-testid="profile-email-text">{{ user.email }}</span></nz-descriptions-item>
             <nz-descriptions-item nzTitle="Role"><span data-testid="profile-role-text">{{ user.role }}</span></nz-descriptions-item>
           </nz-descriptions>
-        </ng-container>
-
-        <ng-template #editTemplate>
+        } @else {
           <form nz-form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
             <nz-form-item>
               <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Name</nz-form-label>
@@ -33,12 +31,14 @@
               </nz-form-control>
             </nz-form-item>
           </form>
-        </ng-template>
-      </ng-container>
+        }
+      }
     </nz-spin>
   </nz-card>
   <ng-template #extraTemplate>
-    <button nz-button nzType="default" (click)="toggleEdit()" *ngIf="!isEditing && !isLoading" data-testid="profile-edit-button">Edit</button>
+    @if (!isEditing && !isLoading) {
+      <button nz-button nzType="default" (click)="toggleEdit()" data-testid="profile-edit-button">Edit</button>
+    }
     <button nz-button nzType="primary" nzDanger (click)="logout()" style="margin-left: 8px" data-testid="profile-logout-button">Logout</button>
   </ng-template>
 </div>

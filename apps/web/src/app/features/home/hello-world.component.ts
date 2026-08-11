@@ -8,6 +8,14 @@ import { APIGatewayService } from '@dedisalam/shared/data-access';
 import { environment } from '../../../environments/environment';
 import { io, Socket } from 'socket.io-client';
 
+interface WebSocketMessage {
+  message?: string;
+}
+
+interface ApiResponse {
+  message?: string;
+}
+
 @Component({
   selector: 'app-hello-world',
   standalone: true,
@@ -65,7 +73,7 @@ export class HelloWorldComponent implements OnInit, OnDestroy {
         this.wsStatus = 'Terhubung ke Socket.IO Gateway (/notifications)';
       });
 
-      this.socket.on('hello', (data: any) => {
+      this.socket.on('hello', (data: WebSocketMessage) => {
         // Tangkap event WebSocket yang masuk, lalu tampilkan Toast/Notification
         this.message.success(`WebSocket Event Diterima: ${data?.message || 'New notification'}`, {
           nzDuration: 5000,
@@ -81,20 +89,22 @@ export class HelloWorldComponent implements OnInit, OnDestroy {
         this.isConnected = false;
         this.wsStatus = `Error koneksi WebSocket: ${err.message}`;
       });
-    } catch (err: any) {
-      this.wsStatus = `Gagal menginisialisasi socket: ${err.message}`;
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      this.wsStatus = `Gagal menginisialisasi socket: ${errorMsg}`;
     }
   }
 
   kirimSapaan() {
     this.isLoading = true;
     this.apiService.getHello().subscribe({
-      next: (res: any) => {
+      next: (res: ApiResponse) => {
         this.message.info(`REST API Berhasil: ${res?.message}`);
         this.isLoading = false;
       },
-      error: (err: any) => {
-        this.message.error(`REST API Gagal: ${err.message}`);
+      error: (err: unknown) => {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        this.message.error(`REST API Gagal: ${errorMsg}`);
         this.isLoading = false;
       },
     });
