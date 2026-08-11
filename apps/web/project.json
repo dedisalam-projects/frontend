@@ -36,6 +36,7 @@
           }
         ],
         "styles": [
+          "node_modules/@delon/theme/default.css",
           "libs/shared/ui/src/assets/styles.scss",
           "apps/web/src/tailwind.css"
         ]

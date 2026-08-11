@@ -11,6 +11,16 @@ import { appRoutes } from './app.routes';
 import { environment } from '../environments/environment';
 import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
 import { provideAlain } from '@delon/theme';
+import { provideNzIcons } from 'ng-zorro-antd/icon';
+import {
+  DashboardOutline,
+  UserOutline,
+  LogoutOutline,
+  ThunderboltOutline,
+  BookOutline,
+} from '@ant-design/icons-angular/icons';
+
+const icons = [DashboardOutline, UserOutline, LogoutOutline, ThunderboltOutline, BookOutline];
 
 const ngZorroConfig: NzConfig = {
   theme: {
@@ -32,5 +42,6 @@ export const appConfig: ApplicationConfig = {
     provideNzI18n(en_US),
     provideNzConfig(ngZorroConfig),
     provideAlain({ config: {} }),
+    provideNzIcons(icons),
   ],
 };
