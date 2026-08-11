@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { LayoutDefaultModule } from '@delon/theme/layout-default';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { LayoutDefaultModule, LayoutDefaultOptions } from '@delon/theme/layout-default';
+import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { ReuseTabModule } from '@delon/abc/reuse-tab';
+import { SettingsService } from '@delon/theme';
 
 @Component({
   selector: 'app-layout-default',
@@ -12,11 +15,21 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   imports: [
     CommonModule,
     RouterModule,
+    RouterOutlet,
     LayoutDefaultModule,
-    NzDropDownModule,
+    NzDropdownModule,
     NzAvatarModule,
     NzIconModule,
+    NzMenuModule,
+    ReuseTabModule,
   ],
   templateUrl: './default.component.html',
 })
-export class LayoutDefaultComponent {}
+export class LayoutDefaultComponent {
+  readonly user = inject(SettingsService).user;
+
+  options: LayoutDefaultOptions = {
+    logoExpanded: `./assets/logo-full.svg`,
+    logoCollapsed: `./assets/logo.svg`,
+  };
+}

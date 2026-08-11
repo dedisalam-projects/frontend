@@ -1,8 +1,16 @@
-<layout-default>
+<layout-default [options]="options" [asideUser]="asideUserTpl" [content]="contentTpl">
+  <!-- Header items kiri -->
+  <layout-default-header-item direction="left" hidden="mobile">
+    <a layout-default-header-item-trigger routerLink="/">
+      <nz-icon nzType="home" />
+    </a>
+  </layout-default-header-item>
+
+  <!-- Header items kanan -->
   <layout-default-header-item direction="right">
     <div class="alain-default__nav-item" nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight">
-      <nz-avatar nzIcon="user" nzSize="small" class="mr-sm"></nz-avatar>
-      <span>Admin User</span>
+      <nz-avatar [nzSrc]="user.avatar || './assets/avatar.png'" nzSize="small" class="mr-sm"></nz-avatar>
+      <span>{{ user.name || 'Admin User' }}</span>
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <ul nz-menu>
@@ -12,6 +20,26 @@
       </ul>
     </nz-dropdown-menu>
   </layout-default-header-item>
-  
-  <router-outlet></router-outlet>
+
+  <!-- Aside user (sidebar bawah) -->
+  <ng-template #asideUserTpl>
+    <div nz-dropdown nzTrigger="click" [nzDropdownMenu]="asideMenu" class="alain-default__aside-user">
+      <nz-avatar class="alain-default__aside-user-avatar" [nzSrc]="user.avatar || './assets/avatar.png'" />
+      <div class="alain-default__aside-user-info">
+        <strong>{{ user.name || 'Admin' }}</strong>
+        <p class="mb0">{{ user.email || 'admin@dedisalam.my.id' }}</p>
+      </div>
+    </div>
+    <nz-dropdown-menu #asideMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item routerLink="/profile"><i nz-icon nzType="setting" class="mr-sm"></i> Account Center</li>
+      </ul>
+    </nz-dropdown-menu>
+  </ng-template>
+
+  <!-- Konten utama -->
+  <ng-template #contentTpl>
+    <reuse-tab></reuse-tab>
+    <router-outlet></router-outlet>
+  </ng-template>
 </layout-default>
