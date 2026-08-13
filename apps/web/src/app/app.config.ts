@@ -9,6 +9,14 @@ import { correlationIdInterceptor, baseUrlInterceptor, API_BASE_URL } from '@ded
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { appRoutes } from './app.routes';
 import { environment } from '../environments/environment';
+import { NzConfig, provideNzConfig } from 'ng-zorro-antd/core/config';
+import { provideAlain } from '@delon/theme';
+
+const ngZorroConfig: NzConfig = {
+  theme: {
+    primaryColor: '#1890ff',
+  },
+};
 
 registerLocaleData(en);
 
@@ -22,5 +30,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimationsAsync(),
     provideNzI18n(en_US),
+    provideNzConfig(ngZorroConfig),
+    provideAlain({ config: {} }),
   ],
 };
