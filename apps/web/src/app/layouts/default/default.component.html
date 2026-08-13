@@ -1,0 +1,44 @@
+<layout-default [options]="options" [asideUser]="asideUserTpl" [content]="contentTpl">
+  
+  <layout-default-header-item direction="left">
+    <div layout-default-header-item-trigger>
+      <nz-icon nzType="menu-fold" />
+    </div>
+  </layout-default-header-item>
+
+  <layout-default-header-item direction="right">
+    <div class="alain-default__nav-item" nz-dropdown [nzDropdownMenu]="userMenu" nzPlacement="bottomRight">
+      <nz-avatar nzIcon="user" nzSize="small" class="mr-sm"></nz-avatar>
+      <span>{{ user.name || 'Admin User' }}</span>
+    </div>
+    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item routerLink="/profile"><i nz-icon nzType="user" class="mr-sm"></i> Profile</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item routerLink="/login"><i nz-icon nzType="logout" class="mr-sm"></i> Logout</li>
+      </ul>
+    </nz-dropdown-menu>
+  </layout-default-header-item>
+
+  <ng-template #asideUserTpl>
+    <div nz-dropdown nzTrigger="click" [nzDropdownMenu]="asideMenu" class="alain-default__aside-user">
+      <nz-avatar class="alain-default__aside-user-avatar" [nzSrc]="user.avatar || './assets/avatar.png'" />
+      <div class="alain-default__aside-user-info">
+        <strong>{{ user.name || 'Admin' }}</strong>
+        <p class="mb0">{{ user.email || 'admin@dedisalam.my.id' }}</p>
+      </div>
+    </div>
+    <nz-dropdown-menu #asideMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item routerLink="/profile">Account Center</li>
+        <li nz-menu-item routerLink="/settings">Account Settings</li>
+      </ul>
+    </nz-dropdown-menu>
+  </ng-template>
+
+  <ng-template #contentTpl>
+    <reuse-tab></reuse-tab>
+    <router-outlet></router-outlet>
+  </ng-template>
+
+</layout-default>
