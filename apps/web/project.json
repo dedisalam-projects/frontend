@@ -6,16 +6,8 @@
   "sourceRoot": "apps/web/src",
   "tags": [],
   "targets": {
-    "tailwind": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx @tailwindcss/cli -i apps/web/src/styles.css -o apps/web/src/tailwind.css",
-        "cwd": "{workspaceRoot}"
-      }
-    },
     "build": {
       "executor": "@angular/build:application",
-      "dependsOn": ["tailwind"],
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -37,7 +29,7 @@
         ],
         "styles": [
           "libs/shared/ui/src/assets/styles.scss",
-          "apps/web/src/tailwind.css"
+          "apps/web/src/styles.less"
         ]
       },
       "configurations": {

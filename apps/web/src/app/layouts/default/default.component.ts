@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { LayoutDefaultModule, LayoutDefaultOptions } from '@delon/theme/layout-default';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
@@ -13,7 +12,6 @@ import { SettingsService } from '@delon/theme';
   selector: 'app-layout-default',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     RouterOutlet,
     LayoutDefaultModule,
