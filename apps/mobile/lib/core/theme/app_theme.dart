@@ -7,7 +7,7 @@ class AppTheme {
     final base = ThemeData.light();
     return base.copyWith(
       colorScheme: const ColorScheme.light(
-        primary: Color(0xFF1677FF), // Ant Design Blue
+        primary: Color(0xFF1890ff), // NG-ALAIN Daybreak Blue
         secondary: Color(0xFF64748b), // Slate 500
         surface: Colors.white,
         onPrimary: Colors.white,
@@ -27,12 +27,21 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1677FF),
+          backgroundColor: const Color(0xFF1890ff),
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(2.0),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+      ),
+      cardTheme: const CardThemeData(
+        color: Colors.white,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(2.0)),
+          side: BorderSide(color: Color(0xFFf0f0f0)),
         ),
       ),
     );

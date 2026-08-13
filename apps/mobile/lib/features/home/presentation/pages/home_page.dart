@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../l10n/generated/app_localizations.dart';
-import '../../../../shared/widgets/admin_layout.dart';
+import '../../../../shared/widgets/mobile_main_layout.dart';
+import '../../../../shared/widgets/status_loading.dart';
 import '../bloc/hello_bloc.dart';
 import '../bloc/hello_event.dart';
 import '../bloc/hello_state.dart';
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdminLayout(
+    return MobileMainLayout(
       title: AppLocalizations.of(context)?.appTitle ?? 'Dashboard',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -31,7 +32,7 @@ class HomePage extends StatelessWidget {
               if (state is HelloInitial) {
                 return const Text('Press the button to fetch data from API Gateway', textAlign: TextAlign.center);
               } else if (state is HelloLoading) {
-                return const Center(child: CircularProgressIndicator());
+                return const StatusLoading();
               } else if (state is HelloSuccess) {
                 return Container(
                   padding: const EdgeInsets.all(16),
