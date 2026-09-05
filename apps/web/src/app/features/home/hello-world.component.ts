@@ -11,26 +11,26 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [NzButtonModule, NzCardModule, NzIconModule, SharedHelloWorldComponent],
   template: `
-    <div class="flex flex-col gap-6">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       <nz-card>
-        <div class="font-semibold text-2xl mb-4">
-          Welcome to <span class="text-blue-600 dark:text-blue-400">{{ title }}</span>
+        <div style="font-weight: 600; font-size: 1.5rem; margin-bottom: 1rem;">
+          Welcome to <span style="color: #2563eb;">{{ title }}</span>
         </div>
 
-        <p class="text-slate-600 dark:text-slate-300">
+        <p style="color: #475569;">
           A modular fullstack application utilizing NestJS backend services, RabbitMQ messaging,
           Redis cache storage, and a responsive frontend web experience powered by NG-ZORRO.
         </p>
 
         <!-- Reusable Shared Hello World Component -->
-        <div class="mt-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+        <div style="margin-top: 1rem; border-top: 1px solid #e2e8f0; padding-top: 1rem;">
           <lib-hello-world
             [baseUrl]="environment.apiUrl"
             [wsUrl]="environment.wsUrl"
           ></lib-hello-world>
         </div>
 
-        <div class="flex gap-4 mt-6">
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
           <button nz-button nzType="primary" (click)="onExplore()">
             <span nz-icon nzType="thunderbolt"></span> Explore Console
           </button>

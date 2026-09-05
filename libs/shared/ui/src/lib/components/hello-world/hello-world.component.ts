@@ -8,32 +8,38 @@ import { APIGatewayService, HelloResponse } from '@dedisalam/shared/data-access'
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="hello-world-card p-4 border-round surface-card shadow-2 mb-4">
-      <h3 class="text-xl font-bold mb-3">Fullstack Hello World Integration</h3>
+    <div class="hello-world-card" style="padding: 1rem; margin-bottom: 1rem;">
+      <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.75rem;">
+        Fullstack Hello World Integration
+      </h3>
 
       <!-- REST API Section -->
-      <div class="rest-status mb-3 p-3 bg-blue-50 border-round">
-        <h4 class="font-semibold text-blue-800 m-0 mb-2">REST API Status (/api/v1/hello)</h4>
+      <div
+        style="margin-bottom: 0.75rem; padding: 0.75rem; background-color: #eff6ff; border-radius: 0.5rem;"
+      >
+        <h4 style="font-weight: 600; color: #1e40af; margin: 0 0 0.5rem 0;">
+          REST API Status (/api/v1/hello)
+        </h4>
         @if (loading()) {
-          <p class="m-0 text-gray-600">Loading payload from API Gateway...</p>
+          <p style="margin: 0; color: #4b5563;">Loading payload from API Gateway...</p>
         } @else if (apiData()) {
-          <p class="m-0 text-green-700 font-medium">
+          <p style="margin: 0; color: #15803d; font-weight: 500;">
             <strong>Message:</strong> {{ apiData()?.message }}
           </p>
-          <p class="m-0 text-gray-700">
+          <p style="margin: 0; color: #374151;">
             <strong>User Service TCP Status:</strong> {{ apiData()?.services?.user }}
           </p>
         } @else if (apiError()) {
-          <p class="m-0 text-red-600"><strong>Error:</strong> {{ apiError() }}</p>
+          <p style="margin: 0; color: #dc2626;"><strong>Error:</strong> {{ apiError() }}</p>
         }
       </div>
 
       <!-- WebSocket Section -->
-      <div class="ws-status p-3 bg-purple-50 border-round">
-        <h4 class="font-semibold text-purple-800 m-0 mb-2">
+      <div style="padding: 0.75rem; background-color: #faf5ff; border-radius: 0.5rem;">
+        <h4 style="font-weight: 600; color: #6b21a8; margin: 0 0 0.5rem 0;">
           WebSocket Push Event (/notifications)
         </h4>
-        <p class="m-0 text-purple-900 font-medium">{{ socketStatus() }}</p>
+        <p style="margin: 0; color: #581c87; font-weight: 500;">{{ socketStatus() }}</p>
       </div>
     </div>
   `,
@@ -42,6 +48,9 @@ import { APIGatewayService, HelloResponse } from '@dedisalam/shared/data-access'
       .hello-world-card {
         border: 1px solid var(--surface-border, #dfe7ef);
         border-radius: 8px;
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
       }
     `,
   ],
