@@ -2,16 +2,23 @@ import { Component, OnInit, OnDestroy, signal, inject, Input } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { io, Socket } from 'socket.io-client';
 import { APIGatewayService, HelloResponse } from '@dedisalam/shared/data-access';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'lib-hello-world',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NzButtonModule],
   template: `
     <div class="hello-world-card" style="padding: 1rem; margin-bottom: 1rem;">
-      <h3 style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.75rem;">
-        Fullstack Hello World Integration
-      </h3>
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;"
+      >
+        <h3 style="font-size: 1.25rem; font-weight: bold; margin: 0;">
+          Fullstack Hello World Integration
+        </h3>
+        <button nz-button nzType="primary" (click)="fetchHello()">Kirim Sapaan</button>
+      </div>
 
       <!-- REST API Section -->
       <div
@@ -60,6 +67,7 @@ export class HelloWorldComponent implements OnInit, OnDestroy {
   @Input() wsUrl = 'http://localhost:3000';
 
   private apiService = inject(APIGatewayService);
+  private notification = inject(NzNotificationService);
   private socket: Socket | null = null;
 
   loading = signal<boolean>(true);
@@ -98,6 +106,10 @@ export class HelloWorldComponent implements OnInit, OnDestroy {
 
       this.socket.on('hello', (data: { message?: string }) => {
         this.socketStatus.set(`Received WS event: "${data?.message || 'hello'}"`);
+        this.notification.success(
+          'WebSocket Event',
+          `Received message: ${data?.message || 'hello'}`,
+        );
       });
 
       this.socket.on('disconnect', () => {

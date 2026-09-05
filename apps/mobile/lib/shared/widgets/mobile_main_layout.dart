@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AdminLayout extends StatelessWidget {
+class MobileMainLayout extends StatelessWidget {
   final Widget child;
   final String title;
 
-  const AdminLayout({
+  const MobileMainLayout({
     super.key,
     required this.child,
     required this.title,
